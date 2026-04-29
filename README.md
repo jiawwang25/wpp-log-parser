@@ -49,9 +49,9 @@ cd C:\wpplog\log\typeC
 This converts all .etl files to .txt format.
 
 ### Step 2: Analyze PortSC Registers
-`powershell
-.\final_portsc.ps1
-`
+```powershell
+powershell -ExecutionPolicy Bypass -File "C:\wpplog\log\typeC\final_portsc.ps1" -LogFile "XhciTrace.etl.001.txt"
+```
 This creates XhciTrace.etl.001_portsc_complete.csv with all bit fields.
 
 ### Step 3: Open CSV in Excel
