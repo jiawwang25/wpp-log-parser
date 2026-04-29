@@ -19,6 +19,9 @@ This directory contains tools for analyzing USB XHCI ETL (Event Trace Log) files
 2. **final_portsc.ps1** - PortSC register analyzer (MAIN TOOL)
    - Parses PortSC register values from ETL logs
    - Outputs CSV with all bit fields as 0/1
+   - Searches for power events and inserts them into CSV in timestamp sequence
+   - Skips power event patterns not found in log and continues to next
+   - Accepts -LogFile parameter to analyze any log file
    - **This is the primary analysis tool**
 
 3. **analyze_pls_details.ps1** - Detailed PLS state analysis
@@ -68,8 +71,8 @@ LineNumber, Timestamp, PortAddress, PortSC, CCS, PED, OCA, PR, PLS, PP, PS, CSC,
 **Metadata:**
 - **LineNumber** - Line number in the ETL log
 - **Timestamp** - Event timestamp
-- **PortAddress** - USB port register address
-- **PortSC** - Raw PortSC value (hex)
+- **PortAddress** - USB port register address, or power event name if row is a power event
+- **PortSC** - Raw PortSC value (hex), empty for power event rows
 
 **Status Bits:**
 - **CCS** (Bit 0) - Current Connect Status (1=connected, 0=disconnected)
@@ -277,7 +280,14 @@ For issues or questions about these tools, refer to:
 - CSV output with 0/1 values
 - Comprehensive documentation
 
+**v1.1 - 2026-04-29**
+- Added power event detection to final_portsc.ps1
+- Power events inserted into CSV in timestamp sequence
+- Supported: Entering Hibernate, Resuming from Hibernate, Entering Modern Standby, Exiting Modern Standby
+- Skips patterns not found in log and continues to next
+- Added -LogFile parameter to support any log file
+
 ---
 
-**Last Updated:** April 29, 2026
+**Last Updated:** April 29, 2026 (v1.1)
 **Location:** C:\wpplog\log\typeC
